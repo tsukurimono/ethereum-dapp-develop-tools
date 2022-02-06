@@ -1,0 +1,19 @@
+version: '3'
+services:
+  npm:
+    build: ./
+    image: node-devel:alpine
+    container_name: npm
+    volumes:
+      - ./work:/work
+    tty: true
+    working_dir: /work
+    ports:
+      - 3000:3000
+    networks:
+      - npm_network
+
+networks:
+  npm_network:
+    enable_ipv6: false
+    driver: bridge
