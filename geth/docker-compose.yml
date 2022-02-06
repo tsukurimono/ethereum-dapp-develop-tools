@@ -1,0 +1,35 @@
+version: '3'
+services:
+  miner:
+    image: ethereum/client-go:stable
+    container_name: miner
+    volumes:
+      - ./miner:/work
+      - ./genesis.json:/work/genesis.json:ro
+    tty: true
+    working_dir: /work
+    ports:
+    - "30307:30307"
+    - "30307:30307/udp"
+    - "8507:8507"
+    entrypoint: sh
+    networks:
+      - ethereum_app
+  client:
+    image: ethereum/client-go:stable
+    container_name: client
+    volumes:
+      - ./client:/work
+      - ./genesis.json:/work/genesis.json:ro
+    tty: true
+    working_dir: /work
+    ports:
+    - "8508:8507"
+    entrypoint: sh
+    networks:
+      - ethereum_app
+
+networks:
+  ethereum_app:
+    enable_ipv6: false
+    driver: bridge

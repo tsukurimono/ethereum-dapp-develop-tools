@@ -1,0 +1,21 @@
+version: '3'
+services:
+  parity:
+    image: parity/parity:stable
+    container_name: parity
+    tty: true
+    volumes:
+      - ./work:/work
+    working_dir: /work
+    ports:
+    - 8080:8080
+    - 8180:8180
+    - 8545:8545
+    networks:
+      - parity_network
+    entrypoint: bash
+
+networks:
+  parity_network:
+    enable_ipv6: false
+    driver: bridge

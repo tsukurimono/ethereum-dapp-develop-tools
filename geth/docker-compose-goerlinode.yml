@@ -1,0 +1,21 @@
+version: '3'
+services:
+  goerli:
+    image: ethereum/client-go:stable
+    container_name: goerli
+    volumes:
+      - ./goerli:/work
+    tty: true
+    working_dir: /work
+    ports:
+    - "30303:30303"
+    - "30303:30303/udp"
+    - "8507:8507"
+    entrypoint: geth --goerli --rpc.evmtimeout 0 --rpc.allow-unprotected-txs --datadir ./data --syncmode "snap" --port 30303 --http --http.api "eth,web3,personal,net,miner,admin,debug" --http.addr 0.0.0.0 --http.port 8507 --http.corsdomain "*" --http.vhosts "*" console
+    networks:
+      - ethereum_app
+
+networks:
+  ethereum_app:
+    enable_ipv6: false
+    driver: bridge
