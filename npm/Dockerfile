@@ -1,4 +1,5 @@
-FROM node:15.9.0-alpine3.11
+# FROM node:15.9.0-alpine3.11
+FROM node:14.18.2-alpine3.14
 
 RUN apk add --no-cache --virtual build-dependencies \
     vim \
